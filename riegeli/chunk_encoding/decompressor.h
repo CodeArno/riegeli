@@ -190,7 +190,7 @@ void Decompressor<Src>::Initialize(SrcInit&& src_init,
     return;
   }
   Dependency<Reader*, Src> compressed_reader(std::forward<SrcInit>(src_init));
-  uint64_t decompressed_size;
+  uint64_t decompressed_size = 0;
   if (ABSL_PREDICT_FALSE(
           !ReadVarint64(compressed_reader.get(), &decompressed_size))) {
     Fail(*compressed_reader, DataLossError("Reading decompressed size failed"));
